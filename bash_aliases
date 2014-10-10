@@ -30,15 +30,15 @@ alias autoclean='sudo apt-get autoclean'
 
 alias sa='dpkg -l | grep -i'
 
-alias build='./configure && make && sudo make install'
+alias build='./configure && make && sudo checkinstall'
 
 alias path='echo $PATH | tr ":" "\n"'
 
 alias pp='cd ~/Documents/Programming/'
-alias pi='cd ~/Documents/INSA/4IF/Cours/'
+alias pi='cd ~/Documents/INSA/5IF/Courses/'
 
 alias g='gvim'
-alias sg='sudo gvim'
+alias sg='sudo gvim 2> /dev/null'
 
 alias dvtm='dvtm -m ^w'
 alias d='dvtm -m ^w'
@@ -51,7 +51,6 @@ alias rm='trash-put'
 alias empty='trash-empty'
 alias srm='rm'
 
-
 alias gst='git status'
 alias ga='git add'
 alias gaa='git add .'
@@ -62,14 +61,13 @@ alias gpush='git push'
 alias gu="git status | grep modified: | awk '{print \$3}' | xargs git add && git status | grep deleted: | awk '{print \$3 }' | xargs git rm 2> /dev/null; git status"
 alias gr='git rm'
 alias gmt='git mergetool'
-
-alias kiwix='nohup /home/khayzo/Logiciels/kiwix/kiwix > /dev/null 2>&1 &'
+alias gd='git diff'
 
 alias mnexus='sudo mtpfs -o allow_other /media/Nexus4/'
 alias unexus='sudo umount /media/Nexus4/'
 
 #---------------------------------------------------------------------------------
-#My functions  
+#My functions
 
 #Extract compressed file
 extract () {
@@ -96,13 +94,13 @@ extract () {
 function bkup {
 
 	BACKUP_FOLDER=~/Dropbox/Linux/Config/`date +%F`
-	
+
 	if [ $# -eq 1 ]
-	then 
+	then
 		sudo mkdir -p $BACKUP_FOLDER && sudo cp -rip $1 $BACKUP_FOLDER && sudo chmod 777 $BACKUP_FOLDER
 	else
 		echo "Error : 1 argument expected but $# received."
-	fi 
+	fi
 }
 
 #Lance un processus en arrière-plan sans qu'il soit rattaché au terminal
@@ -123,7 +121,7 @@ function sichan {
     CHANNEL=-1
     if [ $# -ne 1 ] && [ $# -ne 2 ]; then echo "sichan [interface = ${INTERFACE}] <channel>"; fi
     if [ $# -eq 2 ]
-    then 
+    then
         INTERFACE=$1
         CHANNEL=$2
     elif [ $# -eq 1 ]
@@ -162,13 +160,13 @@ function simon {
     echo "${INTERFACE} set to monitor mode "
 }
 
-# Spoof the mac address of the specified interface 
+# Spoof the mac address of the specified interface
 function spoofmac {
     INTERFACE="wlan0"
     MAC="00:01:02:03:04:05"
     if [ $# -ne 1 ] && [ $# -ne 2 ]; then echo "spoofmac [interface = ${INTERFACE}] [mac_address = ${MAC}]"; fi
     if [ $# -eq 2 ]
-    then 
+    then
         INTERFACE=$1
         MAC=$2
     elif [ $# -eq 1 ]
@@ -195,9 +193,9 @@ function showmac {
 
 # mkdir + cd
 function mkcd() {
-	
+
 	if [ $# -eq 1 ]
-	then	
+	then
 		mkdir -p $1 && cd $1
 	else
 		echo "Error : 1 argument expected but $# received"
@@ -219,7 +217,7 @@ function ippriv() {
     INTERFACE="wlan0"
     if [ $# -ne 1 ]; then echo "ippriv [interface = ${INTERFACE}]"; fi
     if [ $# -eq 1 ]; then INTERFACE=$1; fi
-    sudo ifconfig ${INTERFACE} |grep "inet adr" | awk '{print $2}' | awk -F ':' '{print $2}' 
+    sudo ifconfig ${INTERFACE} |grep "inet adr" | awk '{print $2}' | awk -F ':' '{print $2}'
 }
 
 
